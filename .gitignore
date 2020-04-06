@@ -1,0 +1,13 @@
+.idea/
+CMakeLists.txt
+*/CMakeLists.txt
+cmake-build-debug/
+/ressources
+*.o
+nanotekspice
+*.nts
+Boostrap/
+arcade
+*.so
+vg*
+game/

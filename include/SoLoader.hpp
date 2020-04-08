@@ -38,6 +38,8 @@ public:
             delete this->_instance;
         if (this->_lib != nullptr)
             dlclose(this->_lib);
+        if (filename == "")
+            return;
         this->_lib = dlopen(filename.c_str(), RTLD_LAZY);
         if (this->_lib == nullptr)
             throw std::exception();

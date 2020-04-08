@@ -399,3 +399,28 @@ void Menu::setName() {
 const std::map<std::string, std::string> Menu::getGameData() {
     return std::map<std::string, std::string>();
 }
+
+void Menu::setInfoPlay(const bool info) {
+    goToGame = info;
+}
+
+void Menu::resetMenu() {
+    cursorPosition = 0;
+    cursorLine = 0;
+    indexLib = -1;
+    indexGame = -1;
+    state = PSEUDO;
+    letters.clear();
+    name.clear();
+    Letter1.setText("_");
+    Letter2.setText("_");
+    Letter3.setText("_");
+    Letter4.setText("_");
+    Letter5.setText("_");
+    GameOne.setColor(colorCursorSelected);
+    GameTwo.setColor(colorUnselected);
+    LibOne.setColor(colorUnselected);
+    LibTwo.setColor(colorUnselected);
+    LibThree.setColor(colorUnselected);
+    Play.setColor(colorUnselected);
+}

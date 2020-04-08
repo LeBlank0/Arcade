@@ -52,6 +52,7 @@ private:
     int _state = MENU;
     bool _loop = true;
     bool _stateLoad = false;
+    int _indexStart = 0;
     int time = 0;
 };
 

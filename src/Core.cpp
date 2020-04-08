@@ -60,6 +60,7 @@ int Core::run(std::string lib) {
     while (_loop) {
         if (_menu.getInfoPlay()) {
             _state = GAME;
+            _menu.setInfoPlay(false);
         }
         if (!_stateLoad && _state == GAME) {
             loadGraphic(_menu.getIndexLib());
@@ -70,8 +71,6 @@ int Core::run(std::string lib) {
             _loop = loop(_menu);
         else if (_state == GAME)
             _loop = loop(*this->_game);
-        if (_state == GAME && _game->getGameData().find("go")->second == "yes")
-            _state = MENU;
     }
     return (0);
 }
@@ -113,6 +112,13 @@ bool Core::loop(IGame &render) {
         swapGame(1);
     if (event == "next_game" && _state == GAME)
         swapGame(-1);
+    if (_state == GAME && _game->getGameData().find("go")->second == "yes") {
+        _state = MENU;
+        loadGraphic(_indexStart);
+        _menu.resetMenu();
+        _menu.setLettersSize();
+        _stateLoad = false;
+    }
     return (true);
 }
 
@@ -122,6 +128,7 @@ void Core::load(std::string lib) {
     for ( auto &i : _libs ) {
         if (i == lib) {
             _indexGraphic = index;
+            _indexStart = index;
             _graphic.load(i);
             return;
         }

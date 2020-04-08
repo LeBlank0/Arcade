@@ -27,6 +27,7 @@ public:
     int getIndexLib() const;
     int getIndexGame() const;
     bool getInfoPlay() const;
+    void setInfoPlay(const bool);
 
     std::vector<std::string> getScoresSolarfox() const;
     void setScoresSolarfox(std::vector<std::string> newScores);
@@ -44,6 +45,8 @@ public:
 
     std::vector<std::string> libsNames;
     std::vector<std::string> gamesNames;
+
+    void resetMenu();
 
 private:
     Color colorBlack = Color(0, 0, 0, 255);

@@ -109,6 +109,10 @@ libcaca::libcaca() {
     caca_refresh_display(_dp);
 }
 
+libcaca::~libcaca() {
+    caca_free_display(_dp);
+}
+
 extern "C"
 IGraphic *entry() {
     return new libcaca();

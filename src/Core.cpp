@@ -66,12 +66,12 @@ int Core::run(std::string lib) {
             loadGame(_menu.getIndexGame());
             _stateLoad = true;
         }
-        if (_game->getGameData().find("go")->second == "yes")
-            _state = MENU;
         if (_state == MENU)
             _loop = loop(_menu);
         else if (_state == GAME)
             _loop = loop(*this->_game);
+        if (_state == GAME && _game->getGameData().find("go")->second == "yes")
+            _state = MENU;
     }
     return (0);
 }
@@ -79,14 +79,14 @@ int Core::run(std::string lib) {
 void Core::loadGraphic(int index) {
     if (index == -1 || (size_t)index > _libs.size())
         return;
-    _graphic = SoLoader<IGraphic>(_libs.at(index));
+    _graphic.load(_libs.at(index));
     _indexGraphic = index;
 }
 
 void Core::loadGame(int index) {
     if (index == -1 || (size_t)index > _games.size())
         return;
-    _game = SoLoader<IGame>(_games.at(index));
+    _game.load(_games.at(index));
     _indexGame = index;
 }
 
@@ -122,7 +122,9 @@ void Core::load(std::string lib) {
     for ( auto &i : _libs ) {
         if (i == lib) {
             _indexGraphic = index;
-            _graphic = SoLoader<IGraphic>(i);
+            std::cout << "1" << std::endl;
+            _graphic.load(i);
+            std::cout << "2" << std::endl;
             return;
         }
         index++;

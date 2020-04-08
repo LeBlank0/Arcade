@@ -14,6 +14,7 @@ class SoLoader {
 public:
     SoLoader(const std::string &filename)
     {
+        std::cout << "Start Constructor: " << filename << std::endl;
         if (filename == "")
             return;
         this->_lib = dlopen(filename.c_str(), RTLD_LAZY);
@@ -23,9 +24,32 @@ public:
         if (func == nullptr)
             throw std::exception();
         this->_instance = func();
+        std::cout << "End Constructor: " << filename << std::endl;
     }
 
-    ~SoLoader() = default;
+    ~SoLoader() {
+        std::cout << "Start Destructor" << std::endl;
+        if (this->_instance != nullptr)
+            delete this->_instance;
+        if (this->_lib != nullptr)
+            dlclose(this->_lib);
+        std::cout << "End Destructor" << std::endl;
+    };
+
+    void load(const std::string &filename)
+    {
+        if (this->_instance != nullptr)
+            delete this->_instance;
+        if (this->_lib != nullptr)
+            dlclose(this->_lib);
+        this->_lib = dlopen(filename.c_str(), RTLD_LAZY);
+        if (this->_lib == nullptr)
+            throw std::exception();
+        T *(*func)() = reinterpret_cast<T *(*)()>(dlsym(this->_lib, "entry"));
+        if (func == nullptr)
+            throw std::exception();
+        this->_instance = func();
+    }
 
     T *operator ->() const {
         return (this->_instance);

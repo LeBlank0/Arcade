@@ -11,7 +11,7 @@
 class libcaca : public IGraphic {
 public:
     libcaca();
-    ~libcaca() override = default;
+    ~libcaca() override;
 
     bool isOperational() override;
 

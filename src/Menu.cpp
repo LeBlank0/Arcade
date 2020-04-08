@@ -31,17 +31,17 @@ void Menu::eventLineOne(const std::string &event)
         cursorPosition++;
         GameOne.setColor(colorUnselected);
         GameTwo.setColor(colorCursorSelected);
-        ScoreOne.setText(_scoresSolarfox.at(0));
-        ScoreTwo.setText(_scoresSolarfox.at(1));
-        ScoreThree.setText(_scoresSolarfox.at(2));
+        ScoreOne.setText(_scoresSolarfox.at(0).first + " : " + std::to_string(_scoresSolarfox.at(0).second));
+        ScoreTwo.setText(_scoresSolarfox.at(1).first + " : " + std::to_string(_scoresSolarfox.at(1).second));
+        ScoreThree.setText(_scoresSolarfox.at(2).first + " : " + std::to_string(_scoresSolarfox.at(2).second));
     }
     if (event == "left" && cursorPosition == 1) {
         cursorPosition--;
         GameOne.setColor(colorCursorSelected);
         GameTwo.setColor(colorUnselected);
-        ScoreOne.setText(_scoresSnake.at(0));
-        ScoreTwo.setText(_scoresSnake.at(1));
-        ScoreThree.setText(_scoresSnake.at(2));
+        ScoreOne.setText(_scoresSnake.at(0).first + " : " + std::to_string(_scoresSnake.at(0).second));
+        ScoreTwo.setText(_scoresSnake.at(1).first + " : " + std::to_string(_scoresSnake.at(1).second));
+        ScoreThree.setText(_scoresSnake.at(2).first + " : " + std::to_string(_scoresSnake.at(2).second));
     }
     if (event == "enter" && cursorPosition == 0) {
         cursorLine++;
@@ -324,9 +324,9 @@ void Menu::loadscoresSolarfox() {
 void Menu::loadScores() {
     loadscoresSnake();
     loadscoresSolarfox();
-    ScoreOne.setText(_scoresSnake.at(0));
-    ScoreTwo.setText(_scoresSnake.at(1));
-    ScoreThree.setText(_scoresSnake.at(2));
+    ScoreOne.setText(_scoresSnake.at(0).first + " : " + std::to_string(_scoresSnake.at(0).second));
+    ScoreTwo.setText(_scoresSnake.at(1).first + " : " + std::to_string(_scoresSnake.at(1).second));
+    ScoreThree.setText(_scoresSnake.at(2).first + " : " + std::to_string(_scoresSnake.at(2).second));
 }
 
 void Menu::saveScores() {
@@ -351,19 +351,19 @@ void Menu::saveScores() {
     out2.close();
 }
 
-std::vector<std::string> Menu::getScoresSolarfox() const {
+std::vector<std::pair<std::string, int>> Menu::getScoresSolarfox() const {
     return _scoresSolarfox;
 }
 
-void Menu::setScoresSolarfox(std::vector<std::string> newScores) {
+void Menu::setScoresSolarfox(std::vector<std::pair<std::string, int>> newScores) {
     _scoresSolarfox = newScores;
 }
 
-std::vector<std::string> Menu::getScoresSnake() const {
+std::vector<std::pair<std::string, int>> Menu::getScoresSnake() const {
     return _scoresSnake;
 }
 
-void Menu::setScoresSnake(std::vector<std::string> newScores) {
+void Menu::setScoresSnake(std::vector<std::pair<std::string, int>> newScores) {
     _scoresSnake = newScores;
 }
 

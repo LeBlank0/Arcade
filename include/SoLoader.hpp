@@ -50,6 +50,8 @@ public:
     }
 
     T *operator ->() const {
+        if (!_instance)
+            throw std::exception();
         return (this->_instance);
     }
 

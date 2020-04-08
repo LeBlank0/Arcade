@@ -29,10 +29,10 @@ public:
     bool getInfoPlay() const;
     void setInfoPlay(const bool);
 
-    std::vector<std::string> getScoresSolarfox() const;
-    void setScoresSolarfox(std::vector<std::string> newScores);
-    std::vector<std::string> getScoresSnake() const;
-    void setScoresSnake(std::vector<std::string> newScores);
+    std::vector<std::pair<std::string, int>> getScoresSolarfox() const;
+    void setScoresSolarfox(std::vector<std::pair<std::string, int>> newScores);
+    std::vector<std::pair<std::string, int>> getScoresSnake() const;
+    void setScoresSnake(std::vector<std::pair<std::string, int>> newScores);
 
     void setLettersSize();
 
@@ -99,8 +99,8 @@ private:
 
     bool goToGame = false;
 
-    std::vector<std::string> _scoresSolarfox;
-    std::vector<std::string> _scoresSnake;
+    std::vector<std::pair<std::string, int>> _scoresSolarfox;
+    std::vector<std::pair<std::string, int>> _scoresSnake;
 
     int state = PSEUDO;
 

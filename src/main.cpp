@@ -13,18 +13,15 @@ int dash_h()
     std::cout << "    ./arcade lib\n"<< std::endl;
     std::cout << "DESCRIPTION"<< std::endl;
     std::cout << "    lib    choose which lib you want to use to start the game"<< std::endl;
-    return 0;
+    return 84;
 }
 
 int main(int ac, char **av)
 {
-    if (ac < 2) {
-        //usage();
-        return (84);
-    }
-    if (!strcmp(av[1], "-h")) {
+    if (ac < 2)
         return(dash_h());
-    }
+    if (!strcmp(av[1], "-h"))
+        return(dash_h());
     Core core;
     core.load(av[1]);
     core.run(av[1]);

@@ -97,14 +97,6 @@ bool Core::loop(IGame &render) {
     event = _graphic->handleEvent();
     if (event == "quit")
         return (false);
-    if (event == "next_graphic" && _state == GAME)
-        swapGraphic(1);
-    if (event == "prev_graphic" && _state == GAME)
-        swapGraphic(-1);
-    if (event == "next_game" && _state == GAME)
-        swapGame(1);
-    if (event == "next_game" && _state == GAME)
-        swapGame(-1);
     if (event == "menu" && _state == GAME) {
         _state = MENU;
         return (true);
@@ -113,6 +105,14 @@ bool Core::loop(IGame &render) {
     render.handleUpdate(time + std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - begin).count());
     render.handleRender(*this->_graphic);
     time += std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - begin).count();
+    if (event == "next_graphic" && _state == GAME)
+        swapGraphic(1);
+    if (event == "prev_graphic" && _state == GAME)
+        swapGraphic(-1);
+    if (event == "next_game" && _state == GAME)
+        swapGame(1);
+    if (event == "next_game" && _state == GAME)
+        swapGame(-1);
     return (true);
 }
 
@@ -122,9 +122,7 @@ void Core::load(std::string lib) {
     for ( auto &i : _libs ) {
         if (i == lib) {
             _indexGraphic = index;
-            std::cout << "1" << std::endl;
             _graphic.load(i);
-            std::cout << "2" << std::endl;
             return;
         }
         index++;
@@ -143,13 +141,15 @@ bool Core::gameLoop() {
 }
 
 void Core::swapGraphic(int index) {
-    if ((long unsigned int)(_indexGraphic + index) > _libs.size() || _indexGraphic + index < 0)
+    if ((long unsigned int)_indexGraphic + index >= _libs.size() || _indexGraphic + index < 0)
         return;
+    _indexGraphic += index;
     loadGraphic(_indexGraphic);
 }
 
 void Core::swapGame(int index) {
-    if ((long unsigned int)(_indexGame + index) > _libs.size() || _indexGame + index < 0)
+    if ((long unsigned int)_indexGame + index >= _games.size() || _indexGame + index < 0)
         return;
+    _indexGame += index;
     loadGame(_indexGame);
 }

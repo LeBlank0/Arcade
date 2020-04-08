@@ -66,6 +66,8 @@ int Core::run(std::string lib) {
             loadGame(_menu.getIndexGame());
             _stateLoad = true;
         }
+        if (_game->getGameData().find("go")->second == "yes")
+            _state = MENU;
         if (_state == MENU)
             _loop = loop(_menu);
         else if (_state == GAME)

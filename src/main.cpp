@@ -18,7 +18,7 @@ int dash_h()
 
 int main(int ac, char **av)
 {
-    if (ac < 2)
+    if (ac < 2 || ac > 2)
         return(dash_h());
     if (!strcmp(av[1], "-h"))
         return(dash_h());

@@ -269,56 +269,44 @@ bool Menu::getInfoPlay() const {
     return goToGame;
 }
 
-void Menu::loadscoresSnake() {
-    std::ifstream file{"save/LeaderboardSnake.txt"};
-    std::vector<std::string> score;
-    file >> std::noskipws;
-    std::istream_iterator<char> b{file}, e{};
-    std::string st;
-    std::string stsave;
+void Menu::loadscoresSolarfox()
+{
+    std::ifstream file{"save/LeaderboardSolarfox.txt"};
+    std::string line;
+    std::string stname;
+    std::string stint;
 
-    if (!file.is_open()) {
-        std::cerr << "No such file" << std::endl;
+    if (file) {
+        while (getline(file, line)) {
+            stname = line.substr(0, line.find(" : "));
+            stint = line.substr(line.find(" : ") + 3);
+            _scoresSolarfox.push_back(std::make_pair(stname, stoi(stint)));
+        }
+        file.close();
+    } else {
+        std::cout << "Score does not exist\n";
         exit(84);
     }
-    for (; e != b; ++b)
-        st += *b;
-    for(size_t i = 0; st[i]; i++) {
-        if (st[i] == '\n') {
-            stsave += '\n';
-            _scoresSnake.emplace_back(stsave);
-            stsave = "";
-        } else {
-            stsave += st[i];
-        }
-    }
-    file.close();
 }
 
-void Menu::loadscoresSolarfox() {
-    std::ifstream file{"save/LeaderboardSolarfox.txt"};
-    std::vector<std::string> score;
-    file >> std::noskipws;
-    std::istream_iterator<char> b{file}, e{};
-    std::string st;
-    std::string stsave;
+void Menu::loadscoresSnake()
+{
+    std::ifstream file{"save/LeaderboardSnake.txt"};
+    std::string line;
+    std::string stname;
+    std::string stint;
 
-    if (!file.is_open()) {
-        std::cerr << "No such file" << std::endl;
+    if (file) {
+        while (getline(file, line)) {
+            stname = line.substr(0, line.find(" : "));
+            stint = line.substr(line.find(" : ") + 3);
+            _scoresSnake.push_back(std::make_pair(stname, stoi(stint)));
+        }
+        file.close();
+    } else {
+        std::cout << "Score does not exist\n";
         exit(84);
     }
-    for (; e != b; ++b)
-        st += *b;
-    for(size_t i = 0; st[i]; i++) {
-        if (st[i] == '\n') {
-            stsave += '\n';
-            _scoresSolarfox.emplace_back(stsave);
-            stsave = "";
-        } else {
-            stsave += st[i];
-        }
-    }
-    file.close();
 }
 
 void Menu::loadScores() {
@@ -329,27 +317,44 @@ void Menu::loadScores() {
     ScoreThree.setText(_scoresSnake.at(2).first + " : " + std::to_string(_scoresSnake.at(2).second));
 }
 
-void Menu::saveScores() {
-    std::string save;
-    std::ofstream out("sts.txt");
-    std::ofstream out2("sts.txt");
+void Menu::saveSolarfox()
+{
+    std::ofstream out("save/LeaderboardSolarfox.txt");
+    std::vector<std::string> sout;
+    std::string tmp = "";
 
-    for (auto& i : _scoresSnake) {
-        (void)i;
-        save += _scoresSnake.back();
-        _scoresSnake.pop_back();
+    std::sort(_scoresSolarfox.begin(), _scoresSolarfox.end(), [](std::pair<std::string, int> a, std::pair<std::string, int> b) {
+        return a.second > b.second;
+    });
+    for (auto &i : _scoresSolarfox) {
+        tmp += i.first;
+        tmp += " : ";
+        tmp += std::to_string(i.second);
+        tmp += '\n';
     }
-    out << save;
+    out << tmp;
     out.close();
-    save = "";
-    for (auto& i : _scoresSolarfox) {
-        (void)i;
-        save += _scoresSolarfox.back();
-        _scoresSolarfox.pop_back();
-    }
-    out2 << save;
-    out2.close();
 }
+
+void Menu::saveSnake()
+{
+    std::ofstream out("save/LeaderboardSnake.txt");
+    std::vector<std::string> sout;
+    std::string tmp = "";
+
+    std::sort(_scoresSnake.begin(), _scoresSnake.end(), [](std::pair<std::string, int> a, std::pair<std::string, int> b) {
+        return a.second > b.second;
+    });
+    for (auto &i : _scoresSnake) {
+        tmp += i.first;
+        tmp += " : ";
+        tmp += std::to_string(i.second);
+        tmp += '\n';
+    }
+    out << tmp;
+    out.close();
+}
+
 
 std::vector<std::pair<std::string, int>> Menu::getScoresSolarfox() const {
     return _scoresSolarfox;

@@ -27,7 +27,9 @@ public:
     void drawCircle(const Circle &circle) override;
     void drawSprite(const Sprite &sprite) override;
     void drawText(const Text &text) override;
-    int makeapair(auto &text);
+
+    template <typename T>
+    int makeapair(T &text, int j);
 
     int getncursecolor(const AColor &color);
 

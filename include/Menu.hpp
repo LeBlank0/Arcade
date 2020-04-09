@@ -11,6 +11,7 @@
 #include <fstream>
 #include <iostream>
 #include <cstring>
+#include <algorithm>
 #include "interface/IGame.hpp"
 
 #define PSEUDO -1
@@ -42,6 +43,9 @@ public:
     void loadscoresSnake();
     void loadScores();
     void saveScores();
+
+    void saveSolarfox();
+    void saveSnake();
 
     std::vector<std::string> libsNames;
     std::vector<std::string> gamesNames;

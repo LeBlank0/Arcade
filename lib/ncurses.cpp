@@ -21,9 +21,6 @@ bool ncurses::isOperational() {
 }
 
 int ncurses::getncursecolor(const AColor &color) {
-    //    std::cout << "red : " << percent(color.getColorRed()) << std::endl;
-    //    std::cout << "green : " << percent(color.getColorGreen()) << std::endl;
-    //    std::cout << "blue : " << percent(color.getColorBlue()) << std::endl;
     if (percent(color.getColorRed()) > 80 &&
     percent(color.getColorGreen()) > 80 &&
     percent(color.getColorBlue()) > 80) {
@@ -109,17 +106,17 @@ void ncurses::clearScreen() {
 }
 
 void ncurses::drawRect(const Rect &rect) {
-    attron(COLOR_PAIR(makeapair(rect)));
+    attron(COLOR_PAIR(makeapair(rect, 1)));
     for (size_t i = 0; i < rect.getSizeY(); i++) {
         for (size_t j = 0; j < rect.getSizeX(); j++)
             mvprintw(static_cast<int>((rect.getPositionY() / 100 * 600) / (600 / 33)),
                      static_cast<int>((rect.getPositionX() / 100 * 800) / (800 / 88)), " ");
     }
-    attroff(COLOR_PAIR(makeapair(rect)));
+    attroff(COLOR_PAIR(makeapair(rect, 1)));
 }
 
 void ncurses::drawCircle(const Circle &circle) {
-    attron(COLOR_PAIR(makeapair(circle)));
+    attron(COLOR_PAIR(makeapair(circle, 2)));
     for (int i = 0; i < circle.getSizeX(); i++)
         for (int j = 0; j < circle.getSizeY(); j++) {
             if ((i - (circle.getSizeX() / 2)) * (i - (circle.getSizeX() / 2)) +
@@ -131,18 +128,22 @@ void ncurses::drawCircle(const Circle &circle) {
                                           (800 / 88)), " ");
             }
         }
-    attroff(COLOR_PAIR(makeapair(circle)));
+    attroff(COLOR_PAIR(makeapair(circle, 2)));
 }
 
 void ncurses::drawSprite(const Sprite &sprite) {
 }
 
-int ncurses::makeapair(auto &text)
+template <typename T>
+int ncurses::makeapair(T &text, int j)
 {
     int i = 0;
 
     if (maxpairs == 0) {
-        init_pair(i, getncursecolor(text.getColor()), COLOR_BLACK);
+        if (j == 0)
+            init_pair(i, getncursecolor(text.getColor()), COLOR_BLACK);
+        if (j == 1)
+            init_pair(-i, getncursecolor(text.getColor()), getncursecolor(text.getColor()));
         contenti.push_back(getncursecolor(text.getColor()));
         maxpairs++;
         return (0);
@@ -150,20 +151,26 @@ int ncurses::makeapair(auto &text)
     i = 1;
     for (; i < contenti.size(); i++)
         if (getncursecolor(text.getColor()) == contenti[i]) {
-            return (i);
+            if (j == 0)
+                return (i);
+            if (j == 1)
+                return (-i);
         }
     maxpairs++;
-    init_pair(i, getncursecolor(text.getColor()), COLOR_BLACK);
+    if (j == 0)
+        init_pair(i, getncursecolor(text.getColor()), COLOR_BLACK);
+    if (j == 1)
+        init_pair(-i, getncursecolor(text.getColor()), getncursecolor(text.getColor()));
     contenti.push_back(getncursecolor(text.getColor()));
     return (i);
 }
 
 void ncurses::drawText(const Text &text) {
-    attron(COLOR_PAIR(makeapair(text)));
+    attron(COLOR_PAIR(makeapair(text, 0)));
     mvprintw(static_cast<int>((text.getPositionY() / 100 * 600) / (600 / 33)),
              static_cast<int>((text.getPositionX() / 100 * 800) / (800 / 88)),
              text.getText().c_str());
-    attroff(COLOR_PAIR(makeapair(text)));
+    attroff(COLOR_PAIR(makeapair(text, 0)));
 }
 
 extern "C"

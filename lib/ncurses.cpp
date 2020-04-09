@@ -85,7 +85,7 @@ std::string ncurses::handleEvent() {
             return "down";
         if (key == 'd' || key == KEY_RIGHT)
             return "right";
-        if (key == KEY_BACKSPACE || key == KEY_DL) {
+        if (key == 127 || key == KEY_DC) {
             isOpen = false;
             return "quit";
         }

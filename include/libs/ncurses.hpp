@@ -28,13 +28,15 @@ public:
     void drawSprite(const Sprite &sprite) override;
     void drawText(const Text &text) override;
 
-    template <typename T>
-    int makeapair(T &text, int j);
+    int makeasquarepair(const Rect &rect);
+    int makeatextpair(const Text &text);
 
     int getncursecolor(const AColor &color);
 
+    int maxsquare = 0;
     int maxpairs = 0;
     std::vector<int>contenti;
+    std::vector<int>contentj;
     bool isOpen = true;
     int row = 0;
     int col = 0;

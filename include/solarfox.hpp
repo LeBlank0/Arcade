@@ -21,6 +21,8 @@ public:
     void handleRender(IGraphicRenderer &renderer) const override;
     const std::map<std::string, std::string> getGameData() override;
 
+    void openmap();
+    int countmap();
     void moveShip();
     void collision();
     void handleCoins(int i, int y);
@@ -40,30 +42,13 @@ private:
     int timeEnnemies = 0;
     int timeShoot = 0;
     int dir = 0;
+    int themap = 0;
     bool move = false;
 
-    std::vector<std::string> map = {
-        "********************",
-        "********************",
-        "00000000000000000000",
-        "00000011011011000000",
-        "00000100100100100000",
-        "00000011011011000000",
-        "00000000100100000000",
-        "00000000011000000000",
-        "00000000100100000000",
-        "00000011011011000000",
-        "00000100100100100000",
-        "00000011011011000000",
-        "00000000100100000000",
-        "00000000011000000000",
-        "00000000100100000000",
-        "00000011011011000000",
-        "00000100100100100000",
-        "00000000000000000000",
-        "********************",
-        "********************",
-    };
+    std::vector<std::string> mapcurrent;
+    std::vector<std::string> map1;
+    std::vector<std::string> map2;
+    std::vector<std::string> map3;
     std::vector<std::vector<Rect>> rect;
     Vector2f ship = Vector2f(50, 50);
     Text name = Text(" SolarFox ", Vector2f(2, -1), Vector2f(5, 5), colorBlack);

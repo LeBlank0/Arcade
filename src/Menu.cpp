@@ -280,7 +280,7 @@ void Menu::loadscoresSolarfox()
         while (getline(file, line)) {
             stname = line.substr(0, line.find(" : "));
             stint = line.substr(line.find(" : ") + 3);
-            _scoresSolarfox.push_back(std::make_pair(stname, stoi(stint)));
+            _scoresSolarfox.emplace_back(stname, stoi(stint));
         }
         file.close();
     } else {

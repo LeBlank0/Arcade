@@ -33,6 +33,14 @@ public:
 
     int getncursecolor(const AColor &color);
 
+    void color_pair();
+    void colors(char red, char blue, char green);
+    void colors_text(char red, char blue, char green);
+
+
+
+
+
     int maxsquare = 0;
     int maxpairs = 0;
     std::vector<int>contenti;

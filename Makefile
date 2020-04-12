@@ -16,9 +16,7 @@ NAME		= arcade
 
 SRCS_CORE		=   src/main.cpp         	\
 				src/Core.cpp				\
-				src/Error.cpp				\
-				src/Menu.cpp				\
-				src/SoLoader.cpp
+				src/Menu.cpp
 
 
 OBJS_CORE		= $(SRCS_CORE:.cpp=.o)

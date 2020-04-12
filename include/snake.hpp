@@ -28,10 +28,11 @@ public:
 
 private:
     Color colorBlack = Color(0, 0, 0, 255);
-    Color colorMap = Color(250, 10, 200, 255);
-    Color colorBorder = Color(250, 10, 150, 255);
-    Color colorSnake1 = Color(0, 0, 200, 255);
-    Color colorSnake2 = Color(0, 0, 150, 255);
+    Color colorWhite = Color(255, 255, 255, 255);
+    Color colorMap = Color(250, 255, 0, 255);
+    Color colorBorder = Color(0, 255, 255, 255);
+    Color colorSnake1 = Color(255, 0, 255, 255);
+    Color colorSnake2 = Color(0, 255, 0, 255);
     Color colorHead = Color(0, 0, 255, 255);
     Color colorApple = Color(255, 0, 0, 255);
 
@@ -44,9 +45,9 @@ private:
     bool move = false;
     Vector2f apple = Vector2f(15, 70);
 
-    Text name = Text(" Snake ", Vector2f(2, -1), Vector2f(5, 5), colorBlack);
-    Text score = Text(" Score : ", Vector2f(40, -1), Vector2f(5, 5), colorBlack);
-    Text scoreNb = Text("0", Vector2f(55, -1), Vector2f(5, 5), colorBlack);
+    Text name = Text(" Snake ", Vector2f(2, -1), Vector2f(5, 5), colorWhite);
+    Text score = Text(" Score : ", Vector2f(40, -1), Vector2f(5, 5), colorWhite);
+    Text scoreNb = Text("0", Vector2f(55, -1), Vector2f(5, 5), colorWhite);
     std::vector<std::vector<Rect>> rect;
     std::vector<Vector2f> snake = {
         Vector2f(50, 50),

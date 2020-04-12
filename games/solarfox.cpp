@@ -182,6 +182,7 @@ void Solarfox::playerShoot() {
 }
 
 void Solarfox::enemyShoot(int i, int y, int z) {
+    std::cout << "ship :" << ship.x/5 << " " << ship.y/5 << std::endl;
     if (already1 == 0 || already2 == 0) {
         if (z == 0 && already1 == 0) {
             shoot1.at(0) = i+1;
@@ -198,7 +199,9 @@ void Solarfox::enemyShoot(int i, int y, int z) {
         }
     } else {
         if (z == 0) {
-            if ((mapcurrent[shoot1.at(0)+1][shoot1.at(1)] == '9'
+            if (shoot1.at(1) == (ship.x / 5) && shoot1.at(0) == (ship.y / 5)) {
+                _gameOver = true;
+            } else if ((mapcurrent[shoot1.at(0)+1][shoot1.at(1)] == '9'
             || mapcurrent[shoot1.at(0)+1][shoot1.at(1)] == '*'
             || mapcurrent[shoot1.at(0)+1][shoot1.at(1)] == 'x') && already2 == 1) {
                 mapcurrent[shoot1.at(0)][shoot1.at(1)] = '0';
@@ -206,8 +209,6 @@ void Solarfox::enemyShoot(int i, int y, int z) {
                 shoot1.at(1) = 0;
                 csave1 = ' ';
                 already1 = 0;
-            } else if (i * 5 == ship.x && y * 5  == ship.y) {
-                _gameOver = true;
             } else {
                 mapcurrent[shoot1.at(0)][shoot1.at(1)] = csave1;
                 shoot1.at(0) += 1;
@@ -215,7 +216,9 @@ void Solarfox::enemyShoot(int i, int y, int z) {
                 mapcurrent[shoot1.at(0)][shoot1.at(1)] = 'x';
             }
         } else {
-            if ((mapcurrent[shoot2.at(0) - 1][shoot2.at(1)] == '9'
+            if (shoot2.at(1) == (ship.x / 5) && shoot2.at(0) == (ship.y / 5)) {
+                _gameOver = true;
+            } else if ((mapcurrent[shoot2.at(0) - 1][shoot2.at(1)] == '9'
                 || mapcurrent[shoot2.at(0) - 1][shoot2.at(1)] == '*'
                 || mapcurrent[shoot2.at(0) - 1][shoot2.at(1)] == 'x') && already2 == 1) {
                 mapcurrent[shoot2.at(0)][shoot2.at(1)] = '0';
@@ -223,8 +226,6 @@ void Solarfox::enemyShoot(int i, int y, int z) {
                 shoot2.at(1) = 0;
                 csave2 = ' ';
                 already2 = 0;
-            } else if (i * 5 == ship.x && y * 5  == ship.y) {
-                _gameOver = true;
             } else {
                 mapcurrent[shoot2.at(0)][shoot2.at(1)] = csave2;
                 shoot2.at(0) -= 1;

@@ -218,7 +218,6 @@ void Solarfox::playerShoot() {
 }
 
 void Solarfox::enemyShoot(int i, int y, int z) {
-    std::cout << "ship :" << ship.x/5 << " " << ship.y/5 << std::endl;
     if (already1 == 0 || already2 == 0) {
         if (z == 0 && already1 == 0) {
             shoot1.at(0) = i+1;

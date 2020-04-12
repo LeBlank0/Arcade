@@ -44,6 +44,7 @@ private:
     int speed = 150000;
     int timeShip = 0;
     int timeEnnemies = 0;
+    int timeShootEnnemies = 0;
     int timeShoot = 0;
     int dir = 0;
     int themap = 0;

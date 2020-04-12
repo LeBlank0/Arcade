@@ -182,7 +182,7 @@ void Solarfox::playerShoot() {
 }
 
 void Solarfox::enemyShoot(int i, int y, int z) {
-std::cout << "asdasd" << std::endl;
+    std::cout << already2 <<  already1 << std::endl;
     if (already1 == 0 || already2 == 0) {
         if (z == 0 && already1 == 0) {
             shoot1.at(0) = i+1;
@@ -247,9 +247,10 @@ void Solarfox::handleUpdate(int t)
             }
         timeShip = t;
     }
-    if (t - timeEnnemies > 200000) {
+    if (t - timeShootEnnemies > 200000) {
         enemyShoot(1, enemypos.at(0), 0);
         enemyShoot(18, enemypos.at(1), 1);
+        timeShootEnnemies = t;
     }
     if (t - timeEnnemies > 150000) {
         timeEnnemies = t;

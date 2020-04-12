@@ -36,11 +36,12 @@ public:
 
 private:
     Color colorBlack = Color(0, 0, 0, 255);
-    Color colorBorder = Color(50, 50, 50, 255);
+    Color colorWhite = Color(255, 255, 255, 255);
+    Color colorBorder = Color(0, 255, 255, 255);
     Color colorShip = Color(0, 255, 0, 255);
     Color colorCoins = Color(255, 0, 255, 255);
-    Color colorShoot = Color(250, 255, 0, 255);
-    Color colorEnemy = Color(255, 255, 255, 255);
+    Color colorShoot = Color(0, 0, 255, 255);
+    Color colorEnemy = Color(255, 0, 0, 255);
 
     bool _gameOver = false;
     int score = 0;
@@ -68,9 +69,9 @@ private:
     std::vector<std::string> map3;
     std::vector<std::vector<Rect>> rect;
     Vector2f ship = Vector2f(50, 50);
-    Text name = Text(" SolarFox ", Vector2f(2, -1), Vector2f(5, 5), colorBlack);
-    Text scoretxt = Text(" Score : ", Vector2f(40, -1), Vector2f(5, 5), colorBlack);
-    Text scoreNb = Text("0", Vector2f(55, -1), Vector2f(5, 5), colorBlack);
+    Text name = Text(" SolarFox ", Vector2f(2, -1), Vector2f(5, 5), colorWhite);
+    Text scoretxt = Text(" Score : ", Vector2f(40, -1), Vector2f(5, 5), colorWhite);
+    Text scoreNb = Text("0", Vector2f(55, -1), Vector2f(5, 5), colorWhite);
 };
 
 

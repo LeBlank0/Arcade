@@ -182,7 +182,6 @@ void Solarfox::playerShoot() {
 }
 
 void Solarfox::enemyShoot(int i, int y, int z) {
-    std::cout << already2 <<  already1 << std::endl;
     if (already1 == 0 || already2 == 0) {
         if (z == 0 && already1 == 0) {
             shoot1.at(0) = i+1;
@@ -199,9 +198,10 @@ void Solarfox::enemyShoot(int i, int y, int z) {
         }
     } else {
         if (z == 0) {
-            if ((mapcurrent[shoot1.at(0)][shoot1.at(1) - 1] == '9'
-            || mapcurrent[shoot1.at(0)][shoot1.at(1) - 1] == '*'
-            || mapcurrent[shoot1.at(0)][shoot1.at(1) - 1] == 'x') && already2 == 1) {
+            if ((mapcurrent[shoot1.at(0)+1][shoot1.at(1)] == '9'
+            || mapcurrent[shoot1.at(0)+1][shoot1.at(1)] == '*'
+            || mapcurrent[shoot1.at(0)+1][shoot1.at(1)] == 'x') && already2 == 1) {
+                mapcurrent[shoot1.at(0)][shoot1.at(1)] = '0';
                 shoot1.at(0) = 0;
                 shoot1.at(1) = 0;
                 csave1 = ' ';
@@ -215,9 +215,10 @@ void Solarfox::enemyShoot(int i, int y, int z) {
                 mapcurrent[shoot1.at(0)][shoot1.at(1)] = 'x';
             }
         } else {
-            if ((mapcurrent[shoot2.at(0)][shoot2.at(1) - 1] == '9'
-                || mapcurrent[shoot2.at(0)][shoot2.at(1) - 1] == '*'
-                || mapcurrent[shoot2.at(0)][shoot2.at(1) - 1] == 'x') && already2 == 1) {
+            if ((mapcurrent[shoot2.at(0) - 1][shoot2.at(1)] == '9'
+                || mapcurrent[shoot2.at(0) - 1][shoot2.at(1)] == '*'
+                || mapcurrent[shoot2.at(0) - 1][shoot2.at(1)] == 'x') && already2 == 1) {
+                mapcurrent[shoot2.at(0)][shoot2.at(1)] = '0';
                 shoot2.at(0) = 0;
                 shoot2.at(1) = 0;
                 csave2 = ' ';

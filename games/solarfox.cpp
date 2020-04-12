@@ -398,8 +398,10 @@ void Solarfox::setMapRectColor(int i, int y) {
         rect[y][i].setColor(colorBorder);
     if (mapcurrent[i][y] == '1')
         rect[y][i].setColor(colorCoins);
-    if (mapcurrent[i][y] == '9' || mapcurrent[i][y] == 'x')
+    if (mapcurrent[i][y] == '9')
         rect[y][i].setColor(colorEnemy);
+    if (mapcurrent[i][y] == 'x')
+        rect[y][i].setColor(colorShoot);
     if (ship.x == rect[y][i].getPositionX() && ship.y == rect[y][i].getPositionY())
         rect[y][i].setColor(colorShip);
 }

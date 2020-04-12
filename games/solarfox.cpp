@@ -30,6 +30,30 @@ Solarfox::Solarfox()
     }
 }
 
+void Solarfox::resetGame(int i) {
+    shoot1.at(0) = 0;
+    shoot1.at(1) = 0;
+    shoot2.at(0) = 0;
+    shoot2.at(1) = 0;
+    already1 = 0;
+    already2 = 0;
+    csave1 = ' ';
+    csave2 = ' ';
+    if (i == 0) {
+        enemypos.at(0) = 2;
+        enemypos.at(1) = 18;
+//        emplaceback(score);
+//        saveSolarfox();
+        score = 0;
+        timeShip = 0;
+        timeEnnemies = 0;
+        timeShootEnnemies = 0;
+        timeShoot = 0;
+        dir = 0;
+        themap = 1;
+    }
+}
+
 void Solarfox::openmap() {
     std::ifstream file1{"assets/SolarFoxMap1"};
     std::ifstream file2{"assets/SolarFoxMap2"};
@@ -85,6 +109,8 @@ void Solarfox::handleEvent(const std::string &event)
         dir -= 1;
         move = true;
     }
+    if (event == "enter")
+        playerShoot();
     if (event == "space" && speed == 150000) {
         speed = 120000;
     } else if (event == "space" && speed == 120000)
@@ -105,78 +131,88 @@ int Solarfox::countmap() {
     return count;
 }
 
+void Solarfox::modify1() {
+    shoot1.at(0) = 0;
+    shoot1.at(1) = 0;
+    csave1 = ' ';
+    already1 = 0;
+}
+
+void Solarfox::modify2() {
+    shoot2.at(0) = 0;
+    shoot2.at(1) = 0;
+    csave2 = ' ';
+    already2 = 0;
+}
+
 void Solarfox::playerShoot() {
     if (dir == 0) {
-        shootsave[0] = mapcurrent[ship.x / 5][ship.y / 5 + 1];
-        shootsave[1] = mapcurrent[ship.x / 5][ship.y / 5 + 2];
-        mapcurrent[ship.x / 5][ship.y / 5 + 1] = 's';
-        mapcurrent[ship.x / 5][ship.y / 5 + 2] = 's';
-        if (mapcurrent[ship.x / 5][ship.y / 5] == 'x' ||mapcurrent[ship.x / 5][ship.y / 5] == 'x') {
-            if (ship.x / 5 == shoot1.at(0) && ship.y / 5 == shoot1.at(1)) {
-                shoot1.at(0) = 0;
-                shoot1.at(1) = 0;
-                csave1 = ' ';
-                already1 = 0;
-            } else if (ship.x / 5 == shoot1.at(0) &&ship.y / 5 == shoot1.at(1)) {
-                shoot2.at(0) = 0;
-                shoot2.at(1) = 0;
-                csave2 = ' ';
-                already2 = 0;
-            }
+        if (mapcurrent[ship.y/5 - 1][ship.x / 5] == mapcurrent[shoot1.at(0)][shoot1.at(1)]) {
+            mapcurrent[ship.y/5 - 1][ship.x / 5] = csave1;
+            modify1();
+        }
+        if (mapcurrent[ship.y/5 - 1][ship.x / 5] == mapcurrent[shoot2.at(0)][shoot2.at(1)]) {
+            mapcurrent[ship.y/5 - 1][ship.x / 5] = csave2;
+            modify2();
+        }
+        if (mapcurrent[ship.y/5 - 2][ship.x / 5] == mapcurrent[shoot1.at(0)][shoot1.at(1)]) {
+            mapcurrent[ship.y/5 - 2][ship.x / 5] = csave1;
+            modify1();
+        }
+        if (mapcurrent[ship.y/5 - 2][ship.x / 5] == mapcurrent[shoot2.at(0)][shoot2.at(1)]) {
+            mapcurrent[ship.y/5 - 2][ship.x / 5] = csave2;
+            modify2();
         }
     } else if (dir == 1) {
-        shootsave[0] = mapcurrent[ship.x / 5][ship.y / 5 + 1];
-        shootsave[1] = mapcurrent[ship.x / 5][ship.y / 5 + 2];
-        mapcurrent[ship.x / 5][ship.y / 5 + 1] = 's';
-        mapcurrent[ship.x / 5][ship.y / 5 + 2] = 's';
-        if (mapcurrent[ship.x / 5][ship.y / 5] == 'x' || mapcurrent[ship.x / 5][ship.y / 5] == 'x') {
-            if (ship.x / 5 == shoot1.at(0) && ship.y / 5 == shoot1.at(1)) {
-                shoot1.at(0) = 0;
-                shoot1.at(1) = 0;
-                csave1 = ' ';
-                already1 = 0;
-            } else if (ship.x / 5 == shoot1.at(0) && ship.y / 5 == shoot1.at(1)) {
-                shoot2.at(0) = 0;
-                shoot2.at(1) = 0;
-                csave2 = ' ';
-                already2 = 0;
-            }
+        if (mapcurrent[ship.y/5][ship.x / 5 + 1] == mapcurrent[shoot1.at(0)][shoot1.at(1)]) {
+            mapcurrent[ship.y/5][ship.x / 5 + 1] = csave1;
+            modify1();
+        }
+        if (mapcurrent[ship.y/5][ship.x / 5 + 1] == mapcurrent[shoot2.at(0)][shoot2.at(1)]) {
+            mapcurrent[ship.y/5][ship.x / 5 + 1] = csave2;
+            modify2();
+        }
+        if (mapcurrent[ship.y/5][ship.x / 5 + 2] == mapcurrent[shoot1.at(0)][shoot1.at(1)]) {
+            mapcurrent[ship.y/5][ship.x / 5 + 2] = csave1;
+            modify1();
+        }
+        if (mapcurrent[ship.y/5][ship.x / 5 + 2] == mapcurrent[shoot2.at(0)][shoot2.at(1)]) {
+            mapcurrent[ship.y/5][ship.x / 5 + 2] = csave2;
+            modify2();
         }
     } else if (dir == 2) {
-        shootsave[0] = mapcurrent[ship.x / 5][ship.y / 5 + 1];
-        shootsave[1] = mapcurrent[ship.x / 5][ship.y / 5 + 2];
-        mapcurrent[ship.x / 5][ship.y / 5 + 1] = 's';
-        mapcurrent[ship.x / 5][ship.y / 5 + 2] = 's';
-        if (mapcurrent[ship.x / 5][ship.y / 5] == 'x' || mapcurrent[ship.x / 5][ship.y / 5] == 'x') {
-            if (ship.x / 5 == shoot1.at(0) && ship.y / 5 == shoot1.at(1)) {
-                shoot1.at(0) = 0;
-                shoot1.at(1) = 0;
-                csave1 = ' ';
-                already1 = 0;
-            } else if (ship.x / 5 == shoot1.at(0) && ship.y / 5 == shoot1.at(1)) {
-                shoot2.at(0) = 0;
-                shoot2.at(1) = 0;
-                csave2 = ' ';
-                already2 = 0;
-            }
+        if (mapcurrent[ship.y/5 + 1][ship.x / 5] == mapcurrent[shoot1.at(0)][shoot1.at(1)]) {
+            mapcurrent[ship.y/5 + 1][ship.x / 5] = csave1;
+            modify1();
+        }
+        if (mapcurrent[ship.y/5 + 1][ship.x / 5] == mapcurrent[shoot2.at(0)][shoot2.at(1)]) {
+            mapcurrent[ship.y/5 + 1][ship.x / 5] = csave2;
+            modify2();
+        }
+        if (mapcurrent[ship.y/5 + 2][ship.x / 5] == mapcurrent[shoot1.at(0)][shoot1.at(1)]) {
+            mapcurrent[ship.y/5 + 2][ship.x / 5] = csave1;
+            modify1();
+        }
+        if (mapcurrent[ship.y/5 + 2][ship.x / 5] == mapcurrent[shoot2.at(0)][shoot2.at(1)]) {
+            mapcurrent[ship.y/5 + 2][ship.x / 5] = csave2;
+            modify2();
         }
     } else if (dir == 3) {
-        shootsave[0] = mapcurrent[ship.x / 5][ship.y / 5 + 1];
-        shootsave[1] = mapcurrent[ship.x / 5][ship.y / 5 + 2];
-        mapcurrent[ship.x / 5][ship.y / 5 + 1] = 's';
-        mapcurrent[ship.x / 5][ship.y / 5 + 2] = 's';
-        if (mapcurrent[ship.x / 5][ship.y / 5] == 'x' || mapcurrent[ship.x / 5][ship.y / 5] == 'x') {
-            if (ship.x / 5 == shoot1.at(0) && ship.y / 5 == shoot1.at(1)) {
-                shoot1.at(0) = 0;
-                shoot1.at(1) = 0;
-                csave1 = ' ';
-                already1 = 0;
-            } else if (ship.x / 5 == shoot1.at(0) && ship.y / 5 == shoot1.at(1)) {
-                shoot2.at(0) = 0;
-                shoot2.at(1) = 0;
-                csave2 = ' ';
-                already2 = 0;
-            }
+        if (mapcurrent[ship.y/5][ship.x / 5 - 1] == mapcurrent[shoot1.at(0)][shoot1.at(1)]) {
+            mapcurrent[ship.y/5][ship.x / 5 - 1] = csave1;
+            modify1();
+        }
+        if (mapcurrent[ship.y/5][ship.x / 5 - 1] == mapcurrent[shoot2.at(0)][shoot2.at(1)]) {
+            mapcurrent[ship.y/5][ship.x / 5 - 1] = csave2;
+            modify2();
+        }
+        if (mapcurrent[ship.y/5][ship.x / 5 - 2] == mapcurrent[shoot1.at(0)][shoot1.at(1)]) {
+            mapcurrent[ship.y/5][ship.x / 5 - 2] = csave1;
+            modify1();
+        }
+        if (mapcurrent[ship.y/5][ship.x / 5 - 2] == mapcurrent[shoot2.at(0)][shoot2.at(1)]) {
+            mapcurrent[ship.y/5][ship.x / 5 - 2] = csave2;
+            modify2();
         }
     }
 }
@@ -201,6 +237,7 @@ void Solarfox::enemyShoot(int i, int y, int z) {
         if (z == 0) {
             if (shoot1.at(1) == (ship.x / 5) && shoot1.at(0) == (ship.y / 5)) {
                 _gameOver = true;
+                resetGame(1);
             } else if ((mapcurrent[shoot1.at(0)+1][shoot1.at(1)] == '9'
             || mapcurrent[shoot1.at(0)+1][shoot1.at(1)] == '*'
             || mapcurrent[shoot1.at(0)+1][shoot1.at(1)] == 'x') && already2 == 1) {
@@ -218,6 +255,7 @@ void Solarfox::enemyShoot(int i, int y, int z) {
         } else {
             if (shoot2.at(1) == (ship.x / 5) && shoot2.at(0) == (ship.y / 5)) {
                 _gameOver = true;
+                resetGame(1);
             } else if ((mapcurrent[shoot2.at(0) - 1][shoot2.at(1)] == '9'
                 || mapcurrent[shoot2.at(0) - 1][shoot2.at(1)] == '*'
                 || mapcurrent[shoot2.at(0) - 1][shoot2.at(1)] == 'x') && already2 == 1) {
@@ -293,12 +331,15 @@ void Solarfox::handleCoins(int i, int y) {
         scoreNb.setText(std::to_string(score));
         if (countmap() == 0) {
             if (themap == 1) {
+                resetGame(0);
                 mapcurrent = map2;
                 themap = 2;
             } else if (themap == 2) {
+                resetGame(0);
                 mapcurrent = map3;
                 themap = 3;
             } else if (themap == 3) {
+                resetGame(0);
                 mapcurrent = map1;
                 themap = 1;
             }
@@ -346,8 +387,10 @@ char Solarfox::moveEnemy(char movement, int i, int y, int z) {
 }
 
 void Solarfox::collision() {
-    if (!(ship.x >= 0 && ship.x <= 95 && ship.y >= 10 && ship.y <= 85))
+    if (!(ship.x >= 0 && ship.x <= 95 && ship.y >= 10 && ship.y <= 85)) {
         _gameOver = true;
+        resetGame(1);
+    }
 }
 
 void Solarfox::setMapRectColor(int i, int y) {

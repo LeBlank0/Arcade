@@ -30,6 +30,9 @@ public:
     void moveShip();
     char moveEnemy(char, int, int, int);
     void playerShoot();
+    void modify1();
+    void modify2();
+    void resetGame(int);
 
 private:
     Color colorBlack = Color(0, 0, 0, 255);

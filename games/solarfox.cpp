@@ -185,14 +185,14 @@ void Solarfox::enemyShoot(int i, int y, int z) {
 std::cout << "asdasd" << std::endl;
     if (already1 == 0 || already2 == 0) {
         if (z == 0 && already1 == 0) {
-            shoot1.at(0) = i;
-            shoot1.at(1) = y-1;
+            shoot1.at(0) = i+1;
+            shoot1.at(1) = y;
             csave1 = mapcurrent[shoot1.at(0)][shoot1.at(1)];
             mapcurrent[shoot1.at(0)][shoot1.at(1)] = 'x';
             already1 = 1;
         } else if (z == 1 && already2 == 0){
-            shoot2.at(0) = i;
-            shoot2.at(1) = y+1;
+            shoot2.at(0) = i-1;
+            shoot2.at(1) = y;
             csave2 = mapcurrent[shoot2.at(0)][shoot2.at(1)];
             mapcurrent[shoot2.at(0)][shoot2.at(1)] = 'x';
             already2 = 1;
@@ -210,7 +210,7 @@ std::cout << "asdasd" << std::endl;
                 _gameOver = true;
             } else {
                 mapcurrent[shoot1.at(0)][shoot1.at(1)] = csave1;
-                shoot1.at(1) -= 1;
+                shoot1.at(0) += 1;
                 csave1 = mapcurrent[shoot1.at(0)][shoot1.at(1)];
                 mapcurrent[shoot1.at(0)][shoot1.at(1)] = 'x';
             }
@@ -226,7 +226,7 @@ std::cout << "asdasd" << std::endl;
                 _gameOver = true;
             } else {
                 mapcurrent[shoot2.at(0)][shoot2.at(1)] = csave2;
-                shoot2.at(1) += 1;
+                shoot2.at(0) -= 1;
                 csave2 = mapcurrent[shoot2.at(0)][shoot2.at(1)];
                 mapcurrent[shoot2.at(0)][shoot2.at(1)] = 'x';
             }

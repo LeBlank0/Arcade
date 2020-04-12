@@ -29,8 +29,8 @@ public:
 private:
     Color colorBlack = Color(0, 0, 0, 255);
     Color colorWhite = Color(255, 255, 255, 255);
-    Color colorMap = Color(250, 255, 0, 255);
-    Color colorBorder = Color(0, 255, 255, 255);
+    Color colorBorder = Color(250, 255, 0, 255);
+    Color colorMap = Color(0, 255, 255, 255);
     Color colorSnake1 = Color(255, 0, 255, 255);
     Color colorSnake2 = Color(0, 255, 0, 255);
     Color colorHead = Color(0, 0, 255, 255);

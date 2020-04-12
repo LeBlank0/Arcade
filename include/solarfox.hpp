@@ -37,10 +37,10 @@ public:
 private:
     Color colorBlack = Color(0, 0, 0, 255);
     Color colorWhite = Color(255, 255, 255, 255);
-    Color colorBorder = Color(0, 255, 255, 255);
+    Color colorShoot = Color(0, 255, 255, 255);
+    Color colorBorder = Color(0, 0, 255, 255);
     Color colorShip = Color(0, 255, 0, 255);
     Color colorCoins = Color(255, 0, 255, 255);
-    Color colorShoot = Color(0, 0, 255, 255);
     Color colorEnemy = Color(255, 0, 0, 255);
 
     bool _gameOver = false;

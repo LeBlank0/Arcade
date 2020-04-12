@@ -69,7 +69,6 @@ int ncurses::getncursecolor(const AColor &color) {
     if (percent(color.getColorRed()) > 80 &&
     percent(color.getColorGreen()) > 80 &&
     percent(color.getColorBlue()) > 80) {
-
         return COLOR_WHITE;
     } else if (percent(color.getColorGreen()) < 80 &&
     percent(color.getColorRed()) < 80 &&
@@ -142,47 +141,6 @@ int ncurses::makeatextpair(const Text &text)
 }
 
 void ncurses::drawSprite(const Sprite &sprite) {
-}
-
-void ncurses::color_pair()
-{
-    start_color();
-    init_pair(1, COLOR_BLACK, COLOR_BLACK);
-    init_pair(2, COLOR_WHITE, COLOR_WHITE);
-    init_pair(3, COLOR_RED, COLOR_RED);
-    init_pair(4, COLOR_GREEN, COLOR_GREEN);
-    init_pair(5, COLOR_YELLOW, COLOR_YELLOW);
-    init_pair(6, COLOR_BLUE, COLOR_BLUE);
-    init_pair(7, COLOR_MAGENTA, COLOR_MAGENTA);
-    init_pair(8, COLOR_CYAN, COLOR_CYAN);
-
-    init_pair(9, COLOR_RED, COLOR_BLACK);
-    init_pair(10, COLOR_GREEN, COLOR_BLACK);
-    init_pair(11, COLOR_BLUE, COLOR_BLACK);
-    init_pair(12, COLOR_YELLOW, COLOR_BLACK);
-    init_pair(13, COLOR_MAGENTA, COLOR_BLACK);
-    init_pair(14, COLOR_CYAN, COLOR_BLACK);
-    init_pair(15, COLOR_WHITE, COLOR_BLACK);
-}
-
-void ncurses::colors(char red, char blue, char green)
-{
-    if (red < 80 && green < 80 && blue < 80)
-        attron(COLOR_PAIR(1));
-    if (red > 80 && green > 80 && blue > 80)
-        attron(COLOR_PAIR(2));
-    if (red > 80 && green < 80 && blue < 80)
-        attron(COLOR_PAIR(3));
-    if (red < 80 && green > 80 && blue < 80)
-        attron(COLOR_PAIR(4));
-    if (red > 80 && green > 80)
-        attron(COLOR_PAIR(5));
-    if (red < 80 && green < 80 && blue > 80)
-        attron(COLOR_PAIR(6));
-    if (red > 80 && blue > 80)
-        attron(COLOR_PAIR(7));
-    if (green > 80 && blue > 80)
-        attron(COLOR_PAIR(8));
 }
 
 void ncurses::colors_text(char red, char blue, char green)

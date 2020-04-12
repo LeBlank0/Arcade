@@ -21,12 +21,15 @@ public:
     void handleRender(IGraphicRenderer &renderer) const override;
     const std::map<std::string, std::string> getGameData() override;
 
+    void enemyShoot(int, int, int);
     void openmap();
     int countmap();
-    void moveShip();
     void collision();
     void handleCoins(int i, int y);
     void setMapRectColor(int i, int y);
+    void moveShip();
+    char moveEnemy(char, int, int, int);
+    void playerShoot();
 
 private:
     Color colorBlack = Color(0, 0, 0, 255);
@@ -34,6 +37,7 @@ private:
     Color colorShip = Color(61, 154, 59, 255);
     Color colorCoins = Color(255, 125, 0, 255);
     Color colorShoot = Color(255, 0, 255, 255);
+    Color colorEnemy = Color(255, 255, 255, 255);
 
     bool _gameOver = false;
     int score = 0;
@@ -43,6 +47,15 @@ private:
     int timeShoot = 0;
     int dir = 0;
     int themap = 0;
+    int already1 = 0;
+    int already2 = 0;
+    char csave1;
+    char csave2;
+    std::string shootsave;
+    std::string wmove = "gd";
+    std::vector<int> enemypos;
+    std::vector<int> shoot1;
+    std::vector<int> shoot2;
     bool move = false;
 
     std::vector<std::string> mapcurrent;

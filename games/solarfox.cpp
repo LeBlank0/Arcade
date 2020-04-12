@@ -14,6 +14,12 @@ Solarfox::Solarfox()
     openmap();
     read(fd, &seed, sizeof seed);
     srand(seed);
+    enemypos.emplace_back(2);
+    enemypos.emplace_back(18);
+    shoot1.emplace_back(99);
+    shoot1.emplace_back(99);
+    shoot2.emplace_back(99);
+    shoot2.emplace_back(99);
     for (int i = 0; i < 20; i++) {
         std::vector<Rect> tmp;
         rect.push_back(tmp);
@@ -93,12 +99,139 @@ int Solarfox::countmap() {
     size_t count = 0;
 
     for (auto &i : mapcurrent) {
-        if(i.find('1') != std::string::npos) {
+        if(i.find('1') != std::string::npos)
             count++;
+    }
+    return count;
+}
+
+void Solarfox::playerShoot() {
+    if (dir == 0) {
+        shootsave[0] = mapcurrent[ship.x / 5][ship.y / 5 + 1];
+        shootsave[1] = mapcurrent[ship.x / 5][ship.y / 5 + 2];
+        mapcurrent[ship.x / 5][ship.y / 5 + 1] = 's';
+        mapcurrent[ship.x / 5][ship.y / 5 + 2] = 's';
+        if (mapcurrent[ship.x / 5][ship.y / 5] == 'x' ||mapcurrent[ship.x / 5][ship.y / 5] == 'x') {
+            if (ship.x / 5 == shoot1.at(0) && ship.y / 5 == shoot1.at(1)) {
+                shoot1.at(0) = 0;
+                shoot1.at(1) = 0;
+                csave1 = ' ';
+                already1 = 0;
+            } else if (ship.x / 5 == shoot1.at(0) &&ship.y / 5 == shoot1.at(1)) {
+                shoot2.at(0) = 0;
+                shoot2.at(1) = 0;
+                csave2 = ' ';
+                already2 = 0;
+            }
+        }
+    } else if (dir == 1) {
+        shootsave[0] = mapcurrent[ship.x / 5][ship.y / 5 + 1];
+        shootsave[1] = mapcurrent[ship.x / 5][ship.y / 5 + 2];
+        mapcurrent[ship.x / 5][ship.y / 5 + 1] = 's';
+        mapcurrent[ship.x / 5][ship.y / 5 + 2] = 's';
+        if (mapcurrent[ship.x / 5][ship.y / 5] == 'x' || mapcurrent[ship.x / 5][ship.y / 5] == 'x') {
+            if (ship.x / 5 == shoot1.at(0) && ship.y / 5 == shoot1.at(1)) {
+                shoot1.at(0) = 0;
+                shoot1.at(1) = 0;
+                csave1 = ' ';
+                already1 = 0;
+            } else if (ship.x / 5 == shoot1.at(0) && ship.y / 5 == shoot1.at(1)) {
+                shoot2.at(0) = 0;
+                shoot2.at(1) = 0;
+                csave2 = ' ';
+                already2 = 0;
+            }
+        }
+    } else if (dir == 2) {
+        shootsave[0] = mapcurrent[ship.x / 5][ship.y / 5 + 1];
+        shootsave[1] = mapcurrent[ship.x / 5][ship.y / 5 + 2];
+        mapcurrent[ship.x / 5][ship.y / 5 + 1] = 's';
+        mapcurrent[ship.x / 5][ship.y / 5 + 2] = 's';
+        if (mapcurrent[ship.x / 5][ship.y / 5] == 'x' || mapcurrent[ship.x / 5][ship.y / 5] == 'x') {
+            if (ship.x / 5 == shoot1.at(0) && ship.y / 5 == shoot1.at(1)) {
+                shoot1.at(0) = 0;
+                shoot1.at(1) = 0;
+                csave1 = ' ';
+                already1 = 0;
+            } else if (ship.x / 5 == shoot1.at(0) && ship.y / 5 == shoot1.at(1)) {
+                shoot2.at(0) = 0;
+                shoot2.at(1) = 0;
+                csave2 = ' ';
+                already2 = 0;
+            }
+        }
+    } else if (dir == 3) {
+        shootsave[0] = mapcurrent[ship.x / 5][ship.y / 5 + 1];
+        shootsave[1] = mapcurrent[ship.x / 5][ship.y / 5 + 2];
+        mapcurrent[ship.x / 5][ship.y / 5 + 1] = 's';
+        mapcurrent[ship.x / 5][ship.y / 5 + 2] = 's';
+        if (mapcurrent[ship.x / 5][ship.y / 5] == 'x' || mapcurrent[ship.x / 5][ship.y / 5] == 'x') {
+            if (ship.x / 5 == shoot1.at(0) && ship.y / 5 == shoot1.at(1)) {
+                shoot1.at(0) = 0;
+                shoot1.at(1) = 0;
+                csave1 = ' ';
+                already1 = 0;
+            } else if (ship.x / 5 == shoot1.at(0) && ship.y / 5 == shoot1.at(1)) {
+                shoot2.at(0) = 0;
+                shoot2.at(1) = 0;
+                csave2 = ' ';
+                already2 = 0;
+            }
         }
     }
-    std::cout << count << std::endl;
-    return count;
+}
+
+void Solarfox::enemyShoot(int i, int y, int z) {
+std::cout << "asdasd" << std::endl;
+    if (already1 == 0 || already2 == 0) {
+        if (z == 0 && already1 == 0) {
+            shoot1.at(0) = i;
+            shoot1.at(1) = y-1;
+            csave1 = mapcurrent[shoot1.at(0)][shoot1.at(1)];
+            mapcurrent[shoot1.at(0)][shoot1.at(1)] = 'x';
+            already1 = 1;
+        } else if (z == 1 && already2 == 0){
+            shoot2.at(0) = i;
+            shoot2.at(1) = y+1;
+            csave2 = mapcurrent[shoot2.at(0)][shoot2.at(1)];
+            mapcurrent[shoot2.at(0)][shoot2.at(1)] = 'x';
+            already2 = 1;
+        }
+    } else {
+        if (z == 0) {
+            if ((mapcurrent[shoot1.at(0)][shoot1.at(1) - 1] == '9'
+            || mapcurrent[shoot1.at(0)][shoot1.at(1) - 1] == '*'
+            || mapcurrent[shoot1.at(0)][shoot1.at(1) - 1] == 'x') && already2 == 1) {
+                shoot1.at(0) = 0;
+                shoot1.at(1) = 0;
+                csave1 = ' ';
+                already1 = 0;
+            } else if (i * 5 == ship.x && y * 5  == ship.y) {
+                _gameOver = true;
+            } else {
+                mapcurrent[shoot1.at(0)][shoot1.at(1)] = csave1;
+                shoot1.at(1) -= 1;
+                csave1 = mapcurrent[shoot1.at(0)][shoot1.at(1)];
+                mapcurrent[shoot1.at(0)][shoot1.at(1)] = 'x';
+            }
+        } else {
+            if ((mapcurrent[shoot2.at(0)][shoot2.at(1) - 1] == '9'
+                || mapcurrent[shoot2.at(0)][shoot2.at(1) - 1] == '*'
+                || mapcurrent[shoot2.at(0)][shoot2.at(1) - 1] == 'x') && already2 == 1) {
+                shoot2.at(0) = 0;
+                shoot2.at(1) = 0;
+                csave2 = ' ';
+                already2 = 0;
+            } else if (i * 5 == ship.x && y * 5  == ship.y) {
+                _gameOver = true;
+            } else {
+                mapcurrent[shoot2.at(0)][shoot2.at(1)] = csave2;
+                shoot2.at(1) += 1;
+                csave2 = mapcurrent[shoot2.at(0)][shoot2.at(1)];
+                mapcurrent[shoot2.at(0)][shoot2.at(1)] = 'x';
+            }
+        }
+    }
 }
 
 void Solarfox::handleUpdate(int t)
@@ -114,8 +247,14 @@ void Solarfox::handleUpdate(int t)
             }
         timeShip = t;
     }
+    if (t - timeEnnemies > 200000) {
+        enemyShoot(1, enemypos.at(0), 0);
+        enemyShoot(18, enemypos.at(1), 1);
+    }
     if (t - timeEnnemies > 150000) {
         timeEnnemies = t;
+        wmove[0] = moveEnemy(wmove[0], 1, enemypos.at(0), 0);
+        wmove[1] =  moveEnemy(wmove[1], 18, enemypos.at(1), 1);
     }
     if (t - timeShoot > 50000) {
         timeShoot = t;
@@ -165,14 +304,42 @@ void Solarfox::handleCoins(int i, int y) {
 }
 
 void Solarfox::moveShip() {
-    if (dir == 0)
-        ship -= Vector2f(0, 5);
-    if (dir == 1)
-        ship += Vector2f(5, 0);
-    if (dir == 2)
-        ship += Vector2f(0, 5);
-    if (dir == 3)
-        ship -= Vector2f(5, 0);
+    if(dir == 0)
+        ship -= Vector2f(0,5);
+    if(dir == 1)
+        ship += Vector2f(5,0);
+    if(dir == 2)
+        ship += Vector2f(0,5);
+    if(dir == 3)
+        ship -= Vector2f(5,0);
+}
+
+char Solarfox::moveEnemy(char movement, int i, int y, int z) {
+    if (movement == 'd') {
+        if(mapcurrent[i][y + 1] != '#') {
+            mapcurrent[i][y] = '*';
+            mapcurrent[i][y + 1] = '9';
+            enemypos.at(z) += 1;
+            return movement;
+        } else {
+            mapcurrent[i][y] = '*';
+            mapcurrent[i][y - 1] = '9';
+            enemypos.at(z) -= 1;
+            return 'g';
+        }
+    } else {
+        if (mapcurrent[i][y - 1] != '#') {
+            mapcurrent[i][y] = '*';
+            mapcurrent[i][y - 1] = '9';
+            enemypos.at(z) -= 1;
+            return movement;
+        } else {
+            mapcurrent[i][y] = '*';
+            mapcurrent[i][y + 1] = '9';
+            enemypos.at(z) += 1;
+            return 'd';
+        }
+    }
 }
 
 void Solarfox::collision() {
@@ -182,11 +349,13 @@ void Solarfox::collision() {
 
 void Solarfox::setMapRectColor(int i, int y) {
     rect[y][i].setColor(colorBlack);
-    if (mapcurrent[i][y] == '*')
+    if (mapcurrent[i][y] == '*' || mapcurrent[i][y] == '#')
         rect[y][i].setColor(colorBorder);
     if (mapcurrent[i][y] == '1')
         rect[y][i].setColor(colorCoins);
-    if (ship.x == rect[y][i].getPositionX() && ship.y ==        rect[y][i].getPositionY())
+    if (mapcurrent[i][y] == '9' || mapcurrent[i][y] == 'x')
+        rect[y][i].setColor(colorEnemy);
+    if (ship.x == rect[y][i].getPositionX() && ship.y == rect[y][i].getPositionY())
         rect[y][i].setColor(colorShip);
 }
 
